@@ -53,6 +53,6 @@ class chartmaker:
 
 if __name__ == "__main__":
     
-    im = chartmaker("black_design_simple","11-06-2003","9:38 PM","18.6139° N, 27.2090° E","A FIGHTER WAS BORN","HARYANA")
+    im = chartmaker("black_design_art","25-09-2021","5:30","26.8467° N, 80.9462° E","OUR DAY","LUCKNOW, UTTAR PRADESH")
     im.clubber()
 
