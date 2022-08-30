@@ -3,13 +3,6 @@ import requests
 import json
 url = "https://api.printrove.com/api/external/designs/834299"
 
-#payload = {
-    #"url":"https://static.remove.bg/remove-bg-web/3d75df900686714aa0c3f2ac38a019cdc089943e/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png",
-    #"name":"231478"}
-
-
-#response = requests.request("DELETE",url,headers=head)
-print(response.json())
 class Printrove:
     def __init__(self) -> None:
         self.head = {
@@ -22,6 +15,7 @@ class Printrove:
 
     def costumer_data(self,data):
         pass
+
 
    
 
