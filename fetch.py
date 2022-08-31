@@ -36,7 +36,6 @@ class fetcher(ShopifyUrls):
             "place":data["orders"][num_order]["line_items"][0]['properties'][3]["value"],
             "coords":data["orders"][num_order]["line_items"][0]['properties'][4]["value"],
             "amount":data["orders"][num_order]["line_items"][0]['properties'][4]["value"],
-            "variant":data["orders"][num_order]["shipping_address"]["variant_title"]
 
             })
         
