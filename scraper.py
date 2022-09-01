@@ -6,6 +6,8 @@ import time
 
 
 #os.environ['PATH'] += r"/Users/akashdeepsingh/Documents/mpro/imageeditor/mediaasset"
+url = https://in-the-sky.org/skymap2.php?no_cookie=1&latitude=19.07&longitude=72.88&timezone=5.50&year=2022&month=8&day=27&hour=13&min=46&PLlimitmag=0&zoom=160&ra=11.82811&dec=19.07283
+
 driver = webdriver.Safari()
 driver.get("https://in-the-sky.org/skymap2.php?no_cookie=1&latitude=19.07&longitude=72.88&timezone=5.50&year=2022&month=8&day=27&hour=13&min=46&PLlimitmag=0&zoom=160&ra=11.82811&dec=19.07283")
 driver.implicitly_wait(5)
