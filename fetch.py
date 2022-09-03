@@ -63,9 +63,6 @@ class fetcher(ShopifyUrls):
         
         return orders
     
-    def order_data(self):
-        pass   
-    
 
 if __name__ == "__main__":
     f = fetcher()
