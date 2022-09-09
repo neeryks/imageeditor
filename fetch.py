@@ -35,8 +35,7 @@ class fetcher(ShopifyUrls):
                 "datetime":data["orders"][num_order]["line_items"][0]['properties'][2]["value"],
                 "place":data["orders"][num_order]["line_items"][0]['properties'][3]["value"],
                 "coords":data["orders"][num_order]["line_items"][0]['properties'][4]["value"],
-                "amount":data["orders"][num_order]["line_items"][0]['properties'][4]["value"],
-
+                "amount":data["orders"][num_order]["line_items"][0]['properties'][5]["value"],
 
                 })
             except:
@@ -66,6 +65,8 @@ class fetcher(ShopifyUrls):
 
 if __name__ == "__main__":
     f = fetcher()
-    print(f.shipping_data())
+    d = f.shipping_data()
+    for i in d:
+        print(i)
 
 

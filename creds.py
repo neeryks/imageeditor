@@ -13,7 +13,7 @@ class ShopifyUrls:
             "base_url":"https://astroprinting.myshopify.com",
             "order_place":"https://astroprinting.myshopify.com/admin/api/2022-10/orders.json",
             "get_products":"https://astroprinting.myshopify.com/admin/api/2022-10/products.json",
-            "get_orders":"https://astroprinting.myshopify.com/admin/api/2022-10/orders.json?status=any" 
+            "get_orders":"https://astroprinting.myshopify.com/admin/api/2022-10/orders.json?status=unfulfilled" 
             }
         return access_dict[type]
 
