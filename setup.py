@@ -1,22 +1,14 @@
 
 from datetime import datetime
+from this import d
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 import cairosvg
 import os
-import json
 from creds import ShopifyUrls
-import requests
+import time
 
 
 class fetcher(ShopifyUrls):
-
-    def create_session(self):
-        session = requests.Session()
-        session.headers.update({
-        "X-Shopify-Access-Token":self.token(),
-        "Content-Type":"application/json"
-    })
-        return session
 
     def shipping_data(self):
         sess = self.create_session()
@@ -65,7 +57,7 @@ class fetcher(ShopifyUrls):
 
 
                 })
-        
+        print(orders)
         return orders
 
 class chartmaker(fetcher):
@@ -88,9 +80,9 @@ class chartmaker(fetcher):
     
     def chart(self):
         ch_image = Image.open(self.samplepng[self.design][0])
-        cairosvg.svg2png(url='../starchart/examples/output/img.svg', write_to="mediaasset/input/chart.png",dpi=150,parent_height=1000,parent_width=1000,scale=2.0)
+        cairosvg.svg2png(url=f"output/img.svg", write_to="mediaasset/input/chart.png",dpi=150,parent_height=1000,parent_width=1000,scale=2.3)
         chart = Image.open('mediaasset/input/chart.png')
-        ch_image.paste(chart,(300,1500),chart)
+        ch_image.paste(chart,(228,1162),chart)
         return ch_image
 
     def imagemaker(self):
@@ -113,62 +105,21 @@ class chartmaker(fetcher):
         return image
 
     def clubber(self):
+        os.system('../starchart/bin/starchart.bin newmapi.sch')
         body_ = self.imagemaker()
         chart_ = self.chart()
         f_img = Image.composite(body_,chart_,body_)
-        #f_img.show()
         f_img.save(f"../output_data/{d['order_id']}.png")
 
     def data_in(self):
-        with open("../starchart/examples/newmapi.sch",'w') as wrt: 
-            wrt.write(self.option(self.ra,self.dec))
-            #os.system('cd ../starchart/examples/')
-            print("ok")
-            os.system('../starchart/bin/starchart.bin newmapi.sch')
+        with open(f"newmapi.sch",'w+') as nimg:
+            nimg.write(self.option(self.ra,self.dec))
         self.clubber()
         return 0
 
     def option(self,ra,dec):
-        if d["design"]=="White Simple":
-            config=f'''
-                        DEFAULTS
-
-                        plot_equator=0
-                        plot_galactic_plane=0
-                        plot_ecliptic=0
-                        plot_galaxy_map=0
-                        ra_central={ra}
-                        dec_central={dec}
-                        position_angle=15
-                        constellation_sticks=1
-                        coords=ra_dec
-                        star_names=0
-                        star_label_mag_min=1.5
-                        ra_dec_lines=0
-                        projection=gnomonic
-                        star_catalogue_numbers=0
-                        constellation_boundaries=0
-                        dso_symbol_key=0
-                        width = 30
-                        dso_names=0
-                        angular_width=160
-                        plot_dso=0
-                        coords=ra_dec
-                        aspect=1
-                        star_mag_labels=0
-                        copyright=
-                        copyright_gap_2=0
-                        copyright_gap=0
-                        magnitude_key=0
-
-                        CHART 
-                        output_filename=output/img.svg
-                        star_col=0,0,0
-                        constellation_stick_col=0,0,0
-                        constellation_label_col=0,0,0         
-                '''
-        else:
-            config=f'''
+        if d['design']=="White Simple":
+            config =f'''
                     DEFAULTS
 
                     plot_equator=0
@@ -183,7 +134,7 @@ class chartmaker(fetcher):
                     star_names=0
                     star_label_mag_min=1.5
                     ra_dec_lines=0
-                    projection=flat
+                    projection=sphere
                     star_catalogue_numbers=0
                     constellation_boundaries=0
                     dso_symbol_key=0
@@ -198,13 +149,59 @@ class chartmaker(fetcher):
                     copyright_gap_2=0
                     copyright_gap=0
                     magnitude_key=0
+                    label_font_size_scaling=1.5
+
+
 
                     CHART 
                     output_filename=output/img.svg
-                    star_col=1,1,1
-                    constellation_stick_col=1,1,1
-                    constellation_labe_col=1,1,1
-               '''
+                    star_col=0,0,0
+                    constellation_stick_col=0,0,0
+                    constellation_label_col=0,0,0      
+                    '''
+            
+        else:
+            config=f'''
+                DEFAULTS
+
+                plot_equator=0
+                plot_galactic_plane=0
+                plot_ecliptic=0
+                plot_galaxy_map=0
+                ra_central={ra}
+                dec_central={dec}
+                position_angle=15
+                constellation_sticks=1
+                coords=ra_dec
+                star_names=0
+                star_label_mag_min=1.5
+                ra_dec_lines=0
+                projection=sphere
+                star_catalogue_numbers=0
+                constellation_boundaries=0
+                dso_symbol_key=0
+                width = 30
+                dso_names=0
+                angular_width=160
+                plot_dso=0
+                coords=ra_dec
+                aspect=1
+                star_mag_labels=0
+                copyright=
+                copyright_gap_2=0
+                copyright_gap=0
+                magnitude_key=0
+                label_font_size_scaling=1.5
+
+
+
+                CHART 
+                output_filename=output/img.svg
+                star_col=1,1,1
+                constellation_stick_col=1,1,1
+                constellation_label_col=1,1,1       
+                '''
+
         return config
 
          
@@ -217,3 +214,4 @@ if __name__ == "__main__":
             pass
         im = chartmaker(d['design'],d['datetime'].split()[0],d['datetime'].split()[1],d['coords'],7.274,32.73,d['title'],d['place'])
         im.data_in()
+        

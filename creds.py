@@ -1,5 +1,5 @@
 
-from lib2to3.pgen2 import token
+import requests
 
 
 class ShopifyUrls:
@@ -16,6 +16,14 @@ class ShopifyUrls:
             "get_orders":"https://astroprinting.myshopify.com/admin/api/2022-10/orders.json?status=unfulfilled" 
             }
         return access_dict[type]
+
+    def create_session(self):
+        session = requests.Session()
+        session.headers.update({
+        "X-Shopify-Access-Token":self.token(),
+        "Content-Type":"application/json"
+    })
+        return session
 
 class Printrove:
     def __init__(self) -> None:
