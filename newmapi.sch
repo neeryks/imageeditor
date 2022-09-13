@@ -5,8 +5,8 @@
                 plot_galactic_plane=0
                 plot_ecliptic=0
                 plot_galaxy_map=0
-                ra_central=7.274
-                dec_central=32.73
+                ra_central=43
+                dec_central=34
                 position_angle=15
                 constellation_sticks=1
                 coords=ra_dec
@@ -19,7 +19,7 @@
                 dso_symbol_key=0
                 width = 30
                 dso_names=0
-                angular_width=160
+                angular_width=120
                 plot_dso=0
                 coords=ra_dec
                 aspect=1
